@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const NavContainer = styled.header`
-  background: var(--white-smoke);
-  box-shadow: var(--shadow);
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.5rem 1rem;
   width: 100%;
 `;
 
-const NavLogo = styled.h1`
+const NavLogo = styled.h2`
   font-size: var(--base-font-size):
-  font-weigth: 700;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  text-shadow: var(--shadow);
 `;
 
 const Navigation = () => (

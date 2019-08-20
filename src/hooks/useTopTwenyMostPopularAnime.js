@@ -1,29 +1,19 @@
-import { useState, useEffect } from 'react';
-import { TOP_TWENTY_MOST_POPULAR_URL } from './../utils/endpoints';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { loadTopTwentyMostPopular } from './../actions/';
 
-const useTopTwentyMostPopularAnime = () => {
-  const [anime, setAnime] = useState([]);
+const useTopTwentyMostPopularAnime = props => {
+  const { topTwentyMostPopular } = props;
 
   useEffect(() => {
-    async function fetchAnime() {
-        const config = {
-            headers: {
-                'Accept': 'application/vnd.api+json',
-                'Content-Type': 'application/vnd.api+json',
-            }
-        };
-        const response = await fetch(TOP_TWENTY_MOST_POPULAR_URL, config);
-        const { data } = await response.json();
-
-        return data;
-    }
-
-    fetchAnime()
-    .then(data => setAnime(data))
-    .catch(err => new Error(err));
+    loadTopTwentyMostPopular();
   }, []);
 
-  return anime;
+  return topTwentyMostPopular;
 }
 
-export default useTopTwentyMostPopularAnime;
+const mapStateToProps = state => ({
+  topTwentyMostPopular: state.topTwentyMostPopular,
+});
+
+export default () => connect(mapStateToProps)(useTopTwentyMostPopularAnime);
