@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import GlobalStyle from './../ui/GlobalStyle';
+import Navigation from './../ui/Navigation';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
@@ -17,6 +18,7 @@ const MainLayout = props => {
                 <title>{ title || 'MyAnime.Page | Anime for You!' }</title>
             </Helmet>
 
+            <Navigation/>
             <main>
                 { children }
             </main>
