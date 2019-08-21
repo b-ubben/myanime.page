@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadTopTwentyMostPopular } from './../actions/';
 
-const useTopTwentyMostPopularAnime = props => {
-  const { topTwentyMostPopular } = props;
+const useTopTwentyMostPopularAnime = () => {
+  const dispatch = useDispatch();
+  const topTwentyMostPopular = useSelector(state => state.topTwentyMostPopular);
 
   useEffect(() => {
-    loadTopTwentyMostPopular();
-  }, []);
+    dispatch(loadTopTwentyMostPopular());
+  }, [dispatch])
 
   return topTwentyMostPopular;
 }
 
-const mapStateToProps = state => ({
-  topTwentyMostPopular: state.topTwentyMostPopular,
-});
-
-export default () => connect(mapStateToProps)(useTopTwentyMostPopularAnime);
+export default useTopTwentyMostPopularAnime;

@@ -6,11 +6,11 @@ import Banner from './../components/ui/Banner';
 
 const IndexPage = () => {
     const series = useTopTwentyMostPopularAnime();
+    console.log(series);
 
     return (
         <MainLayout>
             <Banner />
-            {console.log(series)}
         </MainLayout>
     );
 };
