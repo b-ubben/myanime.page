@@ -13,9 +13,10 @@ export const loadTopTwentyMostPopular = () => {
     .then(response => response.json())
     .then(responseData => {
       const { data } = responseData;
+      console.log(data);
       return {
         type: LOAD_TOP_TWENTY_MOST_POPULAR,
-        payload: data,
+        payload: [...data],
       }
-    })
+    });
 }
