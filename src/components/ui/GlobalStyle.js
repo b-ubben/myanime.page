@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     --grey: #4D5061;
     --yellow: #ECC30B;
     --white-smoke: rgba(220, 220, 220, 0.17);
-    --black-smoke: rgba(50, 50, 50, 0.17);
+    --black-smoke: rgba(50, 50, 50, 0.21);
     --shadow: 1px 3px 11px var(--black-smoke);
   }
 
@@ -57,6 +57,11 @@ const GlobalStyle = createGlobalStyle`
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--heading-font), var(--system-fonts);
     font-weight: 600;
+  }
+
+  img {
+    display: block;
+    width: 100%;
   }
 
   p {
