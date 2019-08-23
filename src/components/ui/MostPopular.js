@@ -1,5 +1,5 @@
 import React from 'react';
-import useTopTwentyMostPopularAnime from './../../hooks/useTopTwenyMostPopularAnime';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledArticle = styled.article`
@@ -79,8 +79,7 @@ const ImageCard = props => {
 };
 
 const MostPopular = () => {
-  const series = useTopTwentyMostPopularAnime();
-  console.log(series);
+  const series = useSelector(state => state.topTwentyMostPopular);
 
   return (
     <StyledArticle>

@@ -1,15 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadTopTwentyMostPopular } from './../actions/';
+import { useSelector } from 'react-redux';
 
 const useTopTwentyMostPopularAnime = () => {
-  const dispatch = useDispatch();
   const topTwentyMostPopular = useSelector(state => state.topTwentyMostPopular);
-
-  useEffect(() => {
-    dispatch(loadTopTwentyMostPopular());
-
-  }, [dispatch])
 
   return topTwentyMostPopular;
 }
