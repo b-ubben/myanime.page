@@ -51,12 +51,15 @@ const StyledImg = styled.img`
   object-fit: cover;
   margin-top: 10px;
   position: absolute;
-  right: 5%;
+  right: 2%;
   transform: rotateY(180deg);
   width: 100%;
 
+  @media (min-width: 1280px) {
+    right: 5%;
+  }
+
   @media (max-width: 1024px) {
-    right: 2%;
     margin-top: 30px;
     max-width: 450px;
   }

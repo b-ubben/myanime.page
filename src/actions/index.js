@@ -1,4 +1,4 @@
-import { LOAD_TOP_TWENTY_MOST_POPULAR } from './types';
+import { LOAD_TOP_TWENTY_MOST_POPULAR, FINISH_INITIAL_LOAD } from './types';
 import { TOP_TWENTY_MOST_POPULAR_URL } from './../utils/endpoints';
 
 export const loadTopTwentyMostPopular = () => async dispatch => {
@@ -18,4 +18,11 @@ export const loadTopTwentyMostPopular = () => async dispatch => {
   }
 
   return dispatch(newState);
-}
+};
+
+export const finishInitialLoad = () => dispatch => {
+  dispatch({
+    type: FINISH_INITIAL_LOAD,
+    payload: true,
+  });
+};

@@ -1,7 +1,8 @@
-import { LOAD_TOP_TWENTY_MOST_POPULAR } from './../actions/types';
+import { LOAD_TOP_TWENTY_MOST_POPULAR, FINISH_INITIAL_LOAD } from './../actions/types';
 
 const initialState = {
   topTwentyMostPopular: [],
+  initialLoadComplete: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -12,6 +13,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         topTwentyMostPopular: payload,
+      }
+    case FINISH_INITIAL_LOAD:
+      return {
+        ...state,
+        initialLoadComplete: payload,
       }
     default:
       return state;
