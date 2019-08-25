@@ -1,12 +1,12 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Navigation from './../ui/Navigation';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
 
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,7 +20,7 @@ const MainLayout = props => {
             <main>
                 {children}
             </main>
-        </>
+        </HelmetProvider>
     );
 };
 
