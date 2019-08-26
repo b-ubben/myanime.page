@@ -59,7 +59,7 @@ const ImageCardContainer = styled.figure`
       right: 0;
       bottom: 0;
       left: 0;
-      z-index: 10;
+      z-index: 2;
     }
   }
 
@@ -72,26 +72,26 @@ const ImageCardContainer = styled.figure`
   }
 
   @media (max-width: 1024px) {
-    min-width: 400px;
+    min-width: 350px;
 
     &, img {
       height: 250px;
     }
 
     img {
-      width: 400px;
+      width: 350px;
     }
   }
 
   @media (max-width: 620px) {
-    min-width: 250px;
+    min-width: 350px;
 
     &, img {
-      height: 150px;
+      height: 300px;
     }
 
     img {
-      width: 250px;
+      width: 350px;
     }
   }
 `;
@@ -123,13 +123,17 @@ const ScrollButton = styled.button`
   position: absolute;
   outline: none;
     ${props => props.right ? 'right' : 'left'}: 0;
-    bottom: -10px;
+    bottom: 35%;
   text-shadow: 1px 1px 6px var(--black);
   z-index: 10;
 
   &:hover,
   &:focus {
     cursor: pointer;
+  }
+
+  @media (max-width: 620px) {
+    padding: 0.5rem 1rem;
   }
 `;
 

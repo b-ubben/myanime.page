@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --purple: #67119A;
     --blue: #48099C;
     --white: #EFF9F0;
-    --black: #191308;
+    --black: #010101;
     --grey: #4D5061;
     --yellow: #ECC30B;
     --white-smoke: rgba(220, 220, 220, 0.17);
