@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { scrollContainer } from '../../utils/scrollContainer';
 
 const StyledArticle = styled.article`
   margin: 4rem 0;
@@ -13,7 +14,11 @@ const MostPopularContainer = styled.section`
     justify-content: flex-start;
   height: 100%;
   overflow-x: auto;
-  padding-bottom: 2rem;
+  padding-bottom: 2.5rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ImageCardContainer = styled.figure`
@@ -32,7 +37,7 @@ const ImageCardContainer = styled.figure`
     position: absolute;
       right: 0;
       bottom: 0;
-    text-shadow: 1px 3px 16px var(--black);
+    text-shadow: 1px 1px 15px var(--black);
   }
   
   &:hover,
@@ -105,16 +110,27 @@ const TitleBar = styled.h2`
   }
 `;
 
-const SlideLeftButton = styled.button`
-  background: rgb(255,255,255);
-  background: linear-gradient(90deg, rgba(255,255,255,0) 33%, rgba(0,0,0,0.45) 77%);
-  border: transparent;
+const ScrollButton = styled.button`
+  background: var(--black);
+  border: 2px solid transparent;
+  border-top-${props => props.right ? 'left' : 'right'}-radius: 33px;
+  border-bottom-${props => props.right ? 'left' : 'right'}-radius: 33px;
+  box-shadow: var(--shadow);
+  color: var(--white);
+  font-size: calc(21px + .25vw);
+  font-weight: bold;
+  padding: 1rem 2rem;
   position: absolute;
   outline: none;
-    top: 0;
-    right: 0;
-    bottom: 0;
-  width: 20%;
+    ${props => props.right ? 'right' : 'left'}: 0;
+    bottom: -10px;
+  text-shadow: 1px 1px 6px var(--black);
+  z-index: 10;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+  }
 `;
 
 const ImageCard = props => {
@@ -136,28 +152,25 @@ const ImageCard = props => {
 };
 
 const MostPopular = () => {
-  function handleSlideLeft(e) {
+  function scrollToRight(e) {
     e.preventDefault();
+    scrollContainer('.most-popular-container');
+  }
 
-    const container = document.querySelector('.most-popular-container');
-    if (container.scrollBy) {
-      container.scrollBy({
-        left: 550,
-        behavior: 'smooth',
-      });
-    } else {
-      container.scrollLeft += 550;
-    }
+  function scrollToLeft(e) {
+    e.preventDefault();
+    scrollContainer('.most-popular-container', true);
   }
   const series = useSelector(state => state.topTwentyMostPopular);
 
   return (
     <StyledArticle>
       <TitleBar>Most Popular Titles</TitleBar>
+      <ScrollButton onClick={e => scrollToLeft(e)}>&laquo;</ScrollButton>
       <MostPopularContainer className="most-popular-container">
         {series.map(anime => <ImageCard key={anime.id} {...anime.attributes} />)}
       </MostPopularContainer>
-      <SlideLeftButton onClick={e => handleSlideLeft(e)} />
+      <ScrollButton right onClick={e => scrollToRight(e)}>&raquo;</ScrollButton>
     </StyledArticle>
   );
 };
