@@ -1,8 +1,15 @@
-import { LOAD_TOP_TWENTY_MOST_POPULAR, FINISH_INITIAL_LOAD } from './../actions/types';
+import {
+  DETERMINE_FAN_FAVORITES,
+  FINISH_INITIAL_LOAD,
+  LOAD_TOP_TWENTY_MOST_POPULAR,
+  LOAD_TOP_TWENTY_HIGHEST_RANKED,
+} from './../actions/types';
 
 const initialState = {
-  topTwentyMostPopular: [],
+  fanFavorites: [],
   initialLoadComplete: false,
+  topTwentyMostPopular: [],
+  topTwentyHighestRanked: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -13,12 +20,22 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         topTwentyMostPopular: payload,
-      }
+      };
+    case LOAD_TOP_TWENTY_HIGHEST_RANKED:
+      return {
+        ...state,
+        topTwentyHighestRanked: payload,
+      };
+    case DETERMINE_FAN_FAVORITES:
+      return {
+        ...state,
+        fanFavorites: payload,
+      };
     case FINISH_INITIAL_LOAD:
       return {
         ...state,
         initialLoadComplete: payload,
-      }
+      };
     default:
       return state;
   }

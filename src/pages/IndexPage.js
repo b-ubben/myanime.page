@@ -1,14 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import Loader from './../components/ui/Loader';
 import MainLayout from './../components/layouts/MainLayout';
 import Banner from './../components/ui/Banner';
 import MostPopular from './../components/ui/MostPopular';
-import Loader from './../components/ui/Loader';
-import { useSelector } from 'react-redux';
+import HighestRanked from './../components/ui/HighestRanked';
+import FanFavorites from './../components/ui/FanFavorites';
 
 const PageContent = () => (
     <MainLayout>
         <Banner />
+        <FanFavorites />
         <MostPopular />
+        <HighestRanked />
     </MainLayout>
 );
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { scrollContainer } from '../../utils/scrollContainer';
 
 const StyledArticle = styled.article`
-  margin: 4rem 0;
+  margin-top: 3rem;
   position: relative;
 `;
 

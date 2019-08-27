@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTopTwentyMostPopular, finishInitialLoad } from './../../actions';
+import {
+  loadTopTwentyMostPopular,
+  loadTopTwentyHighestRanked,
+  finishInitialLoad,
+  determineFanFavorites,
+} from './../../actions';
 
 const LoaderContainer = styled.div`
   display: flex;
@@ -33,13 +38,18 @@ const Loader = () => {
   const dispatch = useDispatch();
   const [percentage, setPercentage] = useState('0%');
   const topTwentyMostPopular = useSelector(state => state.topTwentyMostPopular);
+  const topTwentyHighestRanked = useSelector(state => state.topTwentyHighestRanked);
+  const fanFavorites = useSelector(state => state.fanFavorites);
+  console.log(fanFavorites);
 
   useEffect(() => {
     dispatch(loadTopTwentyMostPopular());
+    dispatch(loadTopTwentyHighestRanked());
+    dispatch(determineFanFavorites(topTwentyHighestRanked, topTwentyMostPopular));
     setPercentage('50%');
     setPercentage('100%');
-    !!topTwentyMostPopular.length && dispatch(finishInitialLoad());
-  }, [dispatch, topTwentyMostPopular]);
+    (!!topTwentyHighestRanked.length && !!topTwentyMostPopular.length) && dispatch(finishInitialLoad());
+  }, [dispatch, topTwentyMostPopular, topTwentyHighestRanked]);
 
   return (
     <LoaderContainer>
