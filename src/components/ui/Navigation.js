@@ -11,14 +11,13 @@ const NavContainer = styled.header`
 
 const NavLogo = styled.h2`
   font-size: var(--base-font-size):
-  font-weight: 700;
   padding: 0.5rem 1rem;
   text-shadow: var(--shadow);
 `;
 
 const Navigation = () => (
   <NavContainer>
-    <NavLogo>MyAnime</NavLogo>
+    <NavLogo>myAnime</NavLogo>
   </NavContainer>
 );
 
