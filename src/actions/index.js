@@ -11,15 +11,12 @@ import {
 import { createNewStateWithData } from './../utils/createNewStateWithData';
 
 export const determineFanFavorites = (topTwentyMostPopular, topTwentyHighestRanked) => async dispatch => {
-  const joinedTopTwenty = topTwentyHighestRanked.concat(topTwentyMostPopular);
-  const payload = Object.values(joinedTopTwenty.reduce((acc, series) => {
-    if (!acc[series.id]) acc[series.id] = series;
-    return acc;
-  }, []));
+  const topTwentyMostPopularIDs = topTwentyMostPopular.map(series => series.id);
+  const alsoHighestRanked = topTwentyHighestRanked.filter(series => topTwentyMostPopularIDs.includes(series.id));
 
   return dispatch({
     type: DETERMINE_FAN_FAVORITES,
-    payload,
+    payload: alsoHighestRanked,
   });
 };
 

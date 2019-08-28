@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import ScrollingTitles from './ScrollingTitles';
+import useHighestRanked from './../hooks/useHighestRanked';
 
 const HighestRanked = () => {
-  const topTwentyHighestRanked = useSelector(state => state.topTwentyHighestRanked);
+  const highestRanked = useHighestRanked();
 
   return (
-    !!topTwentyHighestRanked && <ScrollingTitles series={topTwentyHighestRanked} title="Highest Ranked" scrollingContainerClassName="highest-ranked" />
+    !!highestRanked && <ScrollingTitles series={highestRanked} title="Highest Ranked" scrollingContainerClassName="highest-ranked" />
   );
 };
 

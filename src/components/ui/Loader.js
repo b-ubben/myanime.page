@@ -39,8 +39,6 @@ const Loader = () => {
   const [percentage, setPercentage] = useState('0%');
   const topTwentyMostPopular = useSelector(state => state.topTwentyMostPopular);
   const topTwentyHighestRanked = useSelector(state => state.topTwentyHighestRanked);
-  const fanFavorites = useSelector(state => state.fanFavorites);
-  console.log(fanFavorites);
 
   useEffect(() => {
     dispatch(loadTopTwentyMostPopular());

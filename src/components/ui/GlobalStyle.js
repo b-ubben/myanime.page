@@ -52,6 +52,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0 auto;
     max-width: 1920px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -13,7 +13,7 @@ const MainLayout = props => {
                 <meta name="description" content={description || 'MyAnime.page | An Free, Friendly Anime Database for You!'} />
                 <meta name="keywords" content={keywords || 'anime, anime database, myanime, myanimepage'} />
 
-                <title>{title || 'MyAnime.Page | Anime for You!'}</title>
+                <title>{title || 'myAnime.Page | Anime for You!'}</title>
             </Helmet>
 
             <Navigation />

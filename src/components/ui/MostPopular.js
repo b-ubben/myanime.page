@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import ScrollingTitles from './ScrollingTitles';
+import useMostPopular from './../hooks/useMostPopular';
 
 const MostPopular = () => {
-  const topTwentyMostPopular = useSelector(state => state.topTwentyMostPopular);
+  const mostPopular = useMostPopular();
 
   return (
-    !!topTwentyMostPopular && <ScrollingTitles title="Most Popular" series={topTwentyMostPopular} scrollingContainerClassName="most-popular" />
+    !!mostPopular && <ScrollingTitles title="Most Popular" series={mostPopular} scrollingContainerClassName="most-popular" />
   );
 };
 
