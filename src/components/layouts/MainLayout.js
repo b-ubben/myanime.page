@@ -1,9 +1,12 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
 import Navigation from './../ui/Navigation';
+import FocusedSeries from './../ui/FocusedSeries';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
+    const focusedSeries = useSelector(state => state.focusedSeries);
 
     return (
         <HelmetProvider>
@@ -20,6 +23,8 @@ const MainLayout = props => {
             <main>
                 {children}
             </main>
+
+            {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
         </HelmetProvider>
     );
 };

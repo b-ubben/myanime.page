@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { scrollContainer } from '../../utils/scrollContainer';
+import { setFocusedSeries } from './../../actions';
+import { useDispatch } from 'react-redux';
 
 const StyledArticle = styled.article`
   position: relative;
@@ -40,6 +42,8 @@ const ImageCardContainer = styled.figure`
   
   &:hover,
   &:focus {
+    cursor: pointer;
+
     figcaption {
       display: none;
     }
@@ -146,7 +150,10 @@ const ScrollButton = styled.button`
 `;
 
 const ImageCard = props => {
-  const { slug, coverImage, posterImage, titles } = props;
+  const { attributes } = props;
+  const { slug, coverImage, posterImage, titles } = attributes;
+  const dispatch = useDispatch();
+  const handleClick = series => dispatch(setFocusedSeries(series));
 
   let imgSrc;
   if (!coverImage && !posterImage) {
@@ -156,7 +163,7 @@ const ImageCard = props => {
   }
 
   return (
-    <ImageCardContainer {...props}>
+    <ImageCardContainer {...attributes} onClick={e => handleClick(props)}>
       <img src={imgSrc} alt={slug || ""} />
       <figcaption>{titles.en_jp}</figcaption>
     </ImageCardContainer>
@@ -182,7 +189,7 @@ const ScrollingTitles = props => {
       <TitleBar>{title}</TitleBar>
       <ScrollButton onClick={e => scrollToLeft(e)}>&laquo;</ScrollButton>
       <MostPopularContainer className={scrollingContainerClassName}>
-        {series.map(anime => <ImageCard key={anime.id} {...anime.attributes} />)}
+        {series.map(anime => <ImageCard key={anime.id} {...anime} />)}
       </MostPopularContainer>
       <ScrollButton right onClick={e => scrollToRight(e)}>&raquo;</ScrollButton>
     </StyledArticle>

@@ -1,8 +1,9 @@
 import {
   DETERMINE_FAN_FAVORITES,
+  FINISH_INITIAL_LOAD,
   LOAD_TOP_TWENTY_MOST_POPULAR,
   LOAD_TOP_TWENTY_HIGHEST_RANKED,
-  FINISH_INITIAL_LOAD,
+  SET_FOCUSED_SERIES,
 } from './types';
 import {
   TOP_TWENTY_MOST_POPULAR_URL,
@@ -10,7 +11,7 @@ import {
 } from './../utils/endpoints';
 import { createNewStateWithData } from './../utils/createNewStateWithData';
 
-export const determineFanFavorites = (topTwentyMostPopular, topTwentyHighestRanked) => async dispatch => {
+export const determineFanFavorites = (topTwentyMostPopular, topTwentyHighestRanked) => dispatch => {
   const topTwentyMostPopularIDs = topTwentyMostPopular.map(series => series.id);
   const alsoHighestRanked = topTwentyHighestRanked.filter(series => topTwentyMostPopularIDs.includes(series.id));
 
@@ -28,6 +29,13 @@ export const loadTopTwentyMostPopular = () => async dispatch => {
 export const loadTopTwentyHighestRanked = () => async dispatch => {
   const newState = await createNewStateWithData(TOP_TWENTY_HIGHEST_RANKED_URL, LOAD_TOP_TWENTY_HIGHEST_RANKED);
   return dispatch(newState);
+};
+
+export const setFocusedSeries = series => dispatch => {
+  return dispatch({
+    type: SET_FOCUSED_SERIES,
+    payload: series,
+  });
 };
 
 export const finishInitialLoad = () => dispatch => {

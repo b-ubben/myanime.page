@@ -3,10 +3,12 @@ import {
   FINISH_INITIAL_LOAD,
   LOAD_TOP_TWENTY_MOST_POPULAR,
   LOAD_TOP_TWENTY_HIGHEST_RANKED,
+  SET_FOCUSED_SERIES,
 } from './../actions/types';
 
 const initialState = {
   fanFavorites: [],
+  focusedSeries: {},
   initialLoadComplete: false,
   topTwentyMostPopular: [],
   topTwentyHighestRanked: [],
@@ -16,16 +18,6 @@ function rootReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case LOAD_TOP_TWENTY_MOST_POPULAR:
-      return {
-        ...state,
-        topTwentyMostPopular: payload,
-      };
-    case LOAD_TOP_TWENTY_HIGHEST_RANKED:
-      return {
-        ...state,
-        topTwentyHighestRanked: payload,
-      };
     case DETERMINE_FAN_FAVORITES:
       return {
         ...state,
@@ -36,6 +28,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         initialLoadComplete: payload,
       };
+    case LOAD_TOP_TWENTY_MOST_POPULAR:
+      return {
+        ...state,
+        topTwentyMostPopular: payload,
+      };
+    case LOAD_TOP_TWENTY_HIGHEST_RANKED:
+      return {
+        ...state,
+        topTwentyHighestRanked: payload,
+      };
+    case SET_FOCUSED_SERIES:
+      return {
+        ...state,
+        focusedSeries: payload,
+      }
     default:
       return state;
   }
