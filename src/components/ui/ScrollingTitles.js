@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { scrollContainer } from '../../utils/scrollContainer';
 
 const StyledArticle = styled.article`
-  margin-top: 3rem;
   position: relative;
 `;
 
@@ -13,7 +12,7 @@ const MostPopularContainer = styled.section`
     justify-content: flex-start;
   height: 100%;
   overflow-x: auto;
-  padding-bottom: 2.5rem;
+  padding-bottom: 2rem;
 
   &::-webkit-scrollbar {
     display: none;

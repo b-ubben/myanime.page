@@ -7,6 +7,7 @@ const BannerContainer = styled.article`
   box-shadow: var(--shadow);
   height: 500px;
   overflow: hidden;
+  margin-bottom: 3rem;
   position: relative;
   z-index: 1;
 
