@@ -22,9 +22,8 @@ const MainLayout = props => {
             <Navigation />
             <main>
                 {children}
+                {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
             </main>
-
-            {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
         </HelmetProvider>
     );
 };
