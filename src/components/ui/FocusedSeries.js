@@ -4,10 +4,11 @@ import { useDispatch } from 'react-redux';
 import { setFocusedSeries } from './../../actions'
 
 const FocusedSeriesContainer = styled.section`
-  animation: .2s slideUp linear;
+  animation: .2s appear linear;
   background: rgba(0, 0, 0, 0.77);
   box-shadow: var(--shadow);
-  padding: 0;
+  overflow-y: scroll;
+  padding: 0.5rem;
   position: fixed;
   top: 0;
   right: 0;
@@ -15,7 +16,11 @@ const FocusedSeriesContainer = styled.section`
   left: 0;
   z-index: 10;
 
-  @keyframes slideUp {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes appear {
     from {
       opacity: 0;
     }
@@ -23,13 +28,32 @@ const FocusedSeriesContainer = styled.section`
 `;
 
 const FocusedSeriesArticle = styled.article`
+  animation: .25s slideUp linear;
   background: var(--white);
   color: var(--black);
   margin: 0 auto;
-  max-width: 760px;
-  max-width: calc(760px + 0.25vw);
+  max-width: 720px;
   min-height: 100%;
-  width: 95%;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+`;
+
+const FocusedSeriesImg = styled.img`
+  max-height: 500px;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    max-height: 350px;
+  }
+
+  @media (max-width: 620px) {
+    max-height: 250px;
+  }
 `;
 
 const FocusedSeriesTitle = styled.h2`
@@ -38,14 +62,19 @@ const FocusedSeriesTitle = styled.h2`
 `;
 
 const FocusedSeries = props => {
+  console.log(props);
   const { attributes } = props;
   const dispatch = useDispatch();
   const handleClick = () => dispatch(setFocusedSeries({}));
 
   return (
-    <FocusedSeriesContainer onClick={e => handleClick()}>
+    <FocusedSeriesContainer onClick={e => handleClick()} tabIndex="0" role="button">
       <FocusedSeriesArticle>
-        <FocusedSeriesTitle>{attributes.titles.en_jFocusedSeriesTitle || "Test Title"}</FocusedSeriesTitle>
+        <main>
+          <FocusedSeriesImg src={attributes.posterImage.large} alt={attributes.titles.en_jp || attributes.titles.en} />
+          <FocusedSeriesTitle>{attributes.titles.en_jp || "Test Title"}</FocusedSeriesTitle>
+          <p>{attributes.synopsis}</p>
+        </main>
       </FocusedSeriesArticle>
     </FocusedSeriesContainer>
   );
