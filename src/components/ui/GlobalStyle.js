@@ -5,7 +5,10 @@ const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Assistant:400,700|Montserrat:600&display=swap');
 
   :root {
+    --base-font-size: 16px;
     --base-font-size: calc(16px + .25vw);
+    --small-font-size: calc(12px + .25vw);
+    --small-font-size: 12px;
     --system-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --heading-font: Montserrat;
     --primary-font: Assistant;
