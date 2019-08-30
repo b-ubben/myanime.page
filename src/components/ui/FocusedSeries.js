@@ -8,7 +8,7 @@ const FocusedSeriesContainer = styled.section`
   background: rgba(0, 0, 0, 0.77);
   box-shadow: var(--shadow);
   overflow-y: scroll;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   position: fixed;
   top: 0;
   right: 0;
@@ -44,8 +44,10 @@ const FocusedSeriesArticle = styled.article`
 `;
 
 const FocusedSeriesImg = styled.img`
+  margin: 0.75rem 0;
   max-height: 500px;
   object-fit: cover;
+  padding: 0.75rem;
 
   @media (max-width: 768px) {
     max-height: 350px;
@@ -56,9 +58,15 @@ const FocusedSeriesImg = styled.img`
   }
 `;
 
+const FocusedSeriesSynopsis = styled.p`
+  font-size: var(--small-font-size);
+  line-height: 1.3rem;
+  padding: 0 1rem;
+`;
+
 const FocusedSeriesTitle = styled.h2`
-  margin-top: 0;
-  padding: 1rem;
+  margin: 2rem 0 0 0;
+  padding: 0 1rem;
 `;
 
 const FocusedSeries = props => {
@@ -73,7 +81,7 @@ const FocusedSeries = props => {
         <main>
           <FocusedSeriesImg src={attributes.posterImage.large} alt={attributes.titles.en_jp || attributes.titles.en} />
           <FocusedSeriesTitle>{attributes.titles.en_jp || "Test Title"}</FocusedSeriesTitle>
-          <p>{attributes.synopsis}</p>
+          <FocusedSeriesSynopsis>{attributes.synopsis}</FocusedSeriesSynopsis>
         </main>
       </FocusedSeriesArticle>
     </FocusedSeriesContainer>

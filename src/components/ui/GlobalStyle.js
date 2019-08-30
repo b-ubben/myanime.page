@@ -7,8 +7,8 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --base-font-size: 16px;
     --base-font-size: calc(16px + .25vw);
-    --small-font-size: calc(12px + .25vw);
     --small-font-size: 12px;
+    --small-font-size: calc(12px + .25vw);
     --system-fonts: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --heading-font: Montserrat;
     --primary-font: Assistant;

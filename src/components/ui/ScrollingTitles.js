@@ -26,6 +26,7 @@ const ImageCardContainer = styled.figure`
   border-radius: 1px;
   box-shadow: var(--shadow), var(--shadow), var(--shadow);
   height: 300px;
+  outline: none;
   margin: 0 0.5rem 0 0;
   min-width: 550px;
   position: relative;
