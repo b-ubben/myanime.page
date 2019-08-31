@@ -146,7 +146,7 @@ const ScrollButton = styled.button`
   }
 
   @media (max-width: 620px) {
-    padding: 0.5rem 1rem;
+    display: none;
   }
 `;
 
