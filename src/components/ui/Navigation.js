@@ -6,12 +6,9 @@ const NavContainer = styled.header`
   display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
   padding: 0.5rem 1rem;
   width: 100%;
-
-  @media (max-width: 620px) {
-    flex-direction: column;
-  }
 `;
 
 const NavLogo = styled.h2`
