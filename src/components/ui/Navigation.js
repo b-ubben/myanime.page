@@ -1,12 +1,17 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import SearchBar from './SearchBar';
 
 const NavContainer = styled.header`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+    align-items: center;
+    justify-content: space-between;
   padding: 0.5rem 1rem;
   width: 100%;
+
+  @media (max-width: 620px) {
+    flex-direction: column;
+  }
 `;
 
 const NavLogo = styled.h2`
@@ -18,6 +23,7 @@ const NavLogo = styled.h2`
 const Navigation = () => (
   <NavContainer>
     <NavLogo>myAnime</NavLogo>
+    <SearchBar />
   </NavContainer>
 );
 

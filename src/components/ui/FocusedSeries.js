@@ -34,7 +34,6 @@ const FocusedSeriesArticle = styled.article`
   color: var(--black);
   margin: 0 auto;
   max-width: 720px;
-  min-height: 100%;
   
   main {
     padding: 0 1rem 0.5rem 1rem;
@@ -131,7 +130,7 @@ const FocusedSeries = props => {
         <FocusedSeriesInfoContainer>
           <FocusedSeriesTitle>{attributes.titles.en_jp || attributes.canonicalTitle}</FocusedSeriesTitle>
           <FocusedSeriesDetails>
-            <dd><span className="bold">Rating:</span> {attributes.averageRating}%</dd>
+            <dd><span className="bold">Community Rating:</span> {attributes.averageRating}%</dd>
             <dd><span className="bold">Status:</span> {attributes.status}</dd>
             <dd><span className="bold">Episodes:</span> {attributes.episodeCount}</dd>
             <dd><span className="bold">Runtime:</span> {attributes.episodeLength}min</dd>

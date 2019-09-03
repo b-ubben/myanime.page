@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import Navigation from './../ui/Navigation';
 import FocusedSeries from './../ui/FocusedSeries';
+import Footer from './../ui/Footer';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
@@ -24,6 +25,7 @@ const MainLayout = props => {
                 {children}
                 {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
             </main>
+            <Footer />
         </HelmetProvider>
     );
 };
