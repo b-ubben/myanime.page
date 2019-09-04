@@ -5,16 +5,20 @@ import {
   LOAD_TOP_TWENTY_HIGHEST_RANKED,
   SET_FOCUSED_SERIES,
   SET_RECENTLY_VIEWED_SERIES,
+  SET_SEARCH_BAR_INPUT,
   SET_SEARCH_BAR_VISIBILITY,
+  SET_SEARCH_RESULTS,
   TOGGLE_SEARCH_BAR_VISIBILITY,
 } from './types';
 import {
   TOP_TWENTY_MOST_POPULAR_URL,
   TOP_TWENTY_HIGHEST_RANKED_URL,
+  getSearchUrl,
 } from './../utils/endpoints';
 import { createNewStateWithData } from './../utils/createNewStateWithData';
 
-export const determineFanFavorites = (topTwentyMostPopular, topTwentyHighestRanked) => dispatch => {
+export const determineFanFavorites = () => (dispatch, getState) => {
+  const { topTwentyHighestRanked, topTwentyMostPopular } = getState();
   const topTwentyMostPopularIDs = topTwentyMostPopular.map(series => series.id);
   const alsoHighestRanked = topTwentyHighestRanked.filter(series => topTwentyMostPopularIDs.includes(series.id));
 
@@ -61,6 +65,13 @@ export const setRecentlyViewedSeries = (newSeries) => (dispatch, getState) => {
   });
 };
 
+export const setSearchBarInput = input => dispatch => {
+  return dispatch({
+    type: SET_SEARCH_BAR_INPUT,
+    payload: input,
+  });
+};
+
 export const setSearchBarVisibility = visibility => dispatch => {
   return dispatch({
     type: SET_SEARCH_BAR_VISIBILITY,
@@ -76,3 +87,11 @@ export const toggleSearchBarVisibility = () => (dispatch, getState) => {
     payload: !searchBarVisibility,
   });
 }
+
+export const setSearchResults = () => (dispatch, getState) => {
+  const { searchBarInput } = getState();
+  const url = getSearchUrl(searchBarInput);
+  const newState = createNewStateWithData(url, SET_SEARCH_RESULTS);
+
+  return dispatch(newState);
+};

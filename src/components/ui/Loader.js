@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import {
   loadTopTwentyMostPopular,
   loadTopTwentyHighestRanked,
@@ -41,13 +41,15 @@ const Loader = () => {
   const topTwentyHighestRanked = useSelector(state => state.topTwentyHighestRanked);
 
   useEffect(() => {
-    dispatch(loadTopTwentyMostPopular());
-    dispatch(loadTopTwentyHighestRanked());
-    dispatch(determineFanFavorites(topTwentyHighestRanked, topTwentyMostPopular));
+    batch(() => {
+      dispatch(loadTopTwentyMostPopular());
+      dispatch(loadTopTwentyHighestRanked());
+    });
+    dispatch(determineFanFavorites());
     setPercentage('50%');
     setPercentage('100%');
     (!!topTwentyHighestRanked.length && !!topTwentyMostPopular.length) && dispatch(finishInitialLoad());
-  }, [dispatch, topTwentyMostPopular, topTwentyHighestRanked]);
+  }, [dispatch, topTwentyHighestRanked, topTwentyMostPopular]);
 
   return (
     <LoaderContainer>

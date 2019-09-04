@@ -61,8 +61,7 @@ const SearchBar = () => {
 
   function handleSearch(e) {
     e.preventDefault();
-    !searchBarIsVisible && dispatch(toggleSearchBarVisibility());
-    !!userInput && console.log('...searching');
+    (!searchBarIsVisible || !userInput) && dispatch(toggleSearchBarVisibility());
   }
 
   return (

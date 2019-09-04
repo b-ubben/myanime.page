@@ -6,6 +6,8 @@ import {
   SET_FOCUSED_SERIES,
   SET_RECENTLY_VIEWED_SERIES,
   SET_SEARCH_BAR_VISIBILITY,
+  SET_SEARCH_BAR_INPUT,
+  SET_SEARCH_RESULTS,
   TOGGLE_SEARCH_BAR_VISIBILITY,
 } from './../actions/types';
 
@@ -14,7 +16,9 @@ const initialState = {
   focusedSeries: {},
   initialLoadComplete: false,
   recentlyViewedSeries: [],
+  searchBarInput: '',
   searchBarVisibility: false,
+  searchResults: [],
   topTwentyMostPopular: [],
   topTwentyHighestRanked: [],
 };
@@ -51,25 +55,37 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         focusedSeries: payload,
-      }
+      };
 
     case SET_RECENTLY_VIEWED_SERIES:
       return {
         ...state,
         recentlyViewedSeries: payload,
-      }
+      };
+
+    case SET_SEARCH_BAR_INPUT:
+      return {
+        ...state,
+        searchBarInput: payload,
+      };
 
     case SET_SEARCH_BAR_VISIBILITY:
       return {
         ...state,
         searchBarVisibility: payload,
-      }
+      };
+
+    case SET_SEARCH_RESULTS:
+      return {
+        ...state,
+        searchResults: payload,
+      };
 
     case TOGGLE_SEARCH_BAR_VISIBILITY:
       return {
         ...state,
         searchBarVisibility: payload,
-      }
+      };
 
     default:
       return state;
