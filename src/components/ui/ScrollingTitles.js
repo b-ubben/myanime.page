@@ -1,23 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import { scrollContainer } from '../../utils/scrollContainer';
-import { setFocusedSeries } from './../../actions';
-import { useDispatch } from 'react-redux';
+import { setFocusedSeries, setRecentlyViewedSeries } from './../../actions';
+import { useDispatch, batch } from 'react-redux';
 
 const StyledArticle = styled.article`
   position: relative;
 `;
 
-const MostPopularContainer = styled.section`
+const ScrollingContainer = styled.section`
+  animation: 1s fadeIn linear;
   display: flex;
     align-items: center;
     justify-content: flex-start;
-  height: 100%;
+  min-height: 100%;
   overflow-x: auto;
   padding-bottom: 2rem;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @keyframes slideDown {
+    from {
+      min-height: 0%;
+      opacity: 0;
+    }
   }
 `;
 
@@ -154,7 +162,12 @@ const ImageCard = props => {
   const { attributes } = props;
   const { slug, coverImage, posterImage, titles } = attributes;
   const dispatch = useDispatch();
-  const handleClick = series => dispatch(setFocusedSeries(series));
+  function handleClick(series) {
+    batch(() => {
+      dispatch(setFocusedSeries(series));
+      dispatch(setRecentlyViewedSeries(series));
+    });
+  }
 
   let imgSrc;
   if (!coverImage && !posterImage) {
@@ -185,14 +198,18 @@ const ScrollingTitles = props => {
     scrollingContainerClassName && scrollContainer('.' + scrollingContainerClassName, true);
   }
 
+  if (series.length < 4) {
+    return <></>;
+  }
+
   return (
     <StyledArticle>
       <TitleBar>{title}</TitleBar>
-      <ScrollButton onClick={e => scrollToLeft(e)}>&laquo;</ScrollButton>
-      <MostPopularContainer className={scrollingContainerClassName}>
+      {series.length > 3 && <ScrollButton onClick={e => scrollToLeft(e)}>&laquo;</ScrollButton>}
+      <ScrollingContainer className={scrollingContainerClassName}>
         {series.map(anime => <ImageCard key={anime.id} {...anime} />)}
-      </MostPopularContainer>
-      <ScrollButton right onClick={e => scrollToRight(e)}>&raquo;</ScrollButton>
+      </ScrollingContainer>
+      {series.length > 3 && <ScrollButton right onClick={e => scrollToRight(e)}>&raquo;</ScrollButton>}
     </StyledArticle>
   );
 };

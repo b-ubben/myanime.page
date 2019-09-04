@@ -6,10 +6,12 @@ import Banner from './../components/ui/Banner';
 import MostPopular from './../components/ui/MostPopular';
 import HighestRanked from './../components/ui/HighestRanked';
 import FanFavorites from './../components/ui/FanFavorites';
+import RecentlyViewed from './../components/ui/RecentlyViewed';
 
 const PageContent = () => (
     <MainLayout>
         <Banner />
+        <RecentlyViewed />
         <FanFavorites />
         <MostPopular />
         <HighestRanked />

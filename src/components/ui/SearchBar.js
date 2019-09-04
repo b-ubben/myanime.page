@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { toggleSearchBarVisibility } from './../../actions';
+import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
 
 const SearchBarContainer = styled.section`
   padding: 0.25rem 0.5rem;
@@ -36,7 +39,7 @@ const SearchButton = styled.button`
   border: 2px solid transparent;
   border-top-right-radius: 33px;
   border-bottom-right-radius: 33px;
-  ${props => props.isHidden ? 'border-radius: 33px;' : ''}
+  ${props => props.searchBarIsVisible ? '' : 'border-radius: 33px;'}
   color: var(--white);
   font-weight: bold;
   outline: none;
@@ -51,21 +54,22 @@ const SearchButton = styled.button`
 `;
 
 const SearchBar = () => {
-  const [isHidden, setIsHidden] = useState(true);
+  const searchBarIsVisible = useSearchBarVisibility();
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState('');
   const handleInput = e => setUserInput(e.target.value);
 
   function handleSearch(e) {
     e.preventDefault();
-    isHidden && setIsHidden(false);
+    !searchBarIsVisible && dispatch(toggleSearchBarVisibility());
     !!userInput && console.log('...searching');
   }
 
   return (
     <SearchBarContainer role="search">
       <form method="post">
-        {!isHidden && <SearchInput type="text" name="search" onChange={handleInput} value={userInput} />}
-        <SearchButton type="submit" onClick={handleSearch} isHidden={isHidden}>SEARCH</SearchButton>
+        {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={userInput} />}
+        <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible}>SEARCH</SearchButton>
       </form>
     </SearchBarContainer>
   );
