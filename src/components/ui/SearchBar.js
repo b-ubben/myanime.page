@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { toggleSearchBarVisibility } from './../../actions';
+import { toggleSearchBarVisibility, setSearchBarInput } from './../../actions';
 import useSearchBarInput from './../hooks/useSearchBarInput';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
 
@@ -96,6 +96,8 @@ const SearchResultsContainer = styled.ul`
 
 const SearchResults = props => {
   const { searchResults } = props || [];
+  const dispatch = useDispatch();
+  const handleMouseOver = title => dispatch(setSearchBarInput(title));
 
   if (searchResults.length === 0) {
     return <></>;
@@ -103,7 +105,7 @@ const SearchResults = props => {
 
   return (
     <SearchResultsContainer>
-      {searchResults.map(result => <li key={result.id}>{result.title}</li>)}
+      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.title)}>{result.title}</li>)}
     </SearchResultsContainer>
   );
 };
@@ -112,8 +114,7 @@ const SearchBar = () => {
   const searchBarIsVisible = useSearchBarVisibility();
   const searchBarInput = useSearchBarInput();
   const dispatch = useDispatch();
-  const [userInput, setUserInput] = useState('');
-  const handleInput = e => setUserInput(e.target.value);
+  const handleInput = e => dispatch(setSearchBarInput(e.target.value));
   const searchResults = [
     {
       id: 1,
@@ -127,13 +128,13 @@ const SearchBar = () => {
 
   function handleSearch(e) {
     e.preventDefault();
-    (!searchBarIsVisible || !userInput) && dispatch(toggleSearchBarVisibility());
+    (!searchBarIsVisible || !searchBarInput) && dispatch(toggleSearchBarVisibility());
   }
 
   return (
     <SearchBarContainer role="search">
       <SearchForm>
-        {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput || userInput} />}
+        {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput} />}
         {(searchBarIsVisible && !!searchResults) && <SearchResults searchResults={searchResults} />}
         <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible}>SEARCH</SearchButton>
       </SearchForm>
