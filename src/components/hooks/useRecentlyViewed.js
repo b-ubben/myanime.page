@@ -1,9 +1,5 @@
 import { useSelector } from 'react-redux';
 
-const useRecentlyViewed = () => {
-  const recentlyViewedSeries = useSelector(state => state.recentlyViewedSeries);
-
-  return recentlyViewedSeries;
-};
+const useRecentlyViewed = () => useSelector(state => state.recentlyViewedSeries);
 
 export default useRecentlyViewed;

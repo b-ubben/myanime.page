@@ -1,13 +1,26 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Navigation from './../ui/Navigation';
 import FocusedSeries from './../ui/FocusedSeries';
 import Footer from './../ui/Footer';
+import useFocusedSeries from './../hooks/useFocusedSeries';
+import useSearchBarInput from './../hooks/useSearchBarInput';
+import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
+import { setSearchBarVisibility } from './../../actions';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
-    const focusedSeries = useSelector(state => state.focusedSeries);
+    const focusedSeries = useFocusedSeries();
+    const searchBarInput = useSearchBarInput();
+    const searchBarVisibility = useSearchBarVisibility();
+    const dispatch = useDispatch();
+
+    function handleSearchBarVisibility(e) {
+        e.preventDefault();
+
+        (searchBarVisibility && searchBarInput === '') && dispatch(setSearchBarVisibility(false));
+    }
 
     return (
         <HelmetProvider>
@@ -21,7 +34,7 @@ const MainLayout = props => {
             </Helmet>
 
             <Navigation />
-            <main>
+            <main onClick={handleSearchBarVisibility}>
                 {children}
                 {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
             </main>
