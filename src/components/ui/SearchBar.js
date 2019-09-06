@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { toggleSearchBarVisibility, setSearchBarInput } from './../../actions';
+import { toggleSearchBarVisibility, setSearchBarInput, setSearchResults } from './../../actions';
 import useSearchBarInput from './../hooks/useSearchBarInput';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
+import useSearchResults from './../hooks/useSearchResults';
 
 const SearchBarContainer = styled.section`
   padding: 0.25rem 0.5rem;
@@ -105,7 +106,7 @@ const SearchResults = props => {
 
   return (
     <SearchResultsContainer>
-      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.title)}>{result.title}</li>)}
+      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp || result.attributes.canonicalTitle)}>{result.title}</li>)}
     </SearchResultsContainer>
   );
 };
@@ -115,27 +116,22 @@ const SearchBar = () => {
   const searchBarInput = useSearchBarInput();
   const dispatch = useDispatch();
   const handleInput = e => dispatch(setSearchBarInput(e.target.value));
-  const searchResults = [
-    {
-      id: 1,
-      title: 'Testing 1',
-    },
-    {
-      id: 2,
-      title: 'Testing 2',
-    }
-  ];
+  const searchResults = useSearchResults() || [];
 
   function handleSearch(e) {
     e.preventDefault();
     (!searchBarIsVisible || !searchBarInput) && dispatch(toggleSearchBarVisibility());
+
+    if (searchBarInput !== '') {
+      dispatch(setSearchResults());
+    }
   }
 
   return (
     <SearchBarContainer role="search">
       <SearchForm>
         {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput} />}
-        {(searchBarIsVisible && !!searchResults) && <SearchResults searchResults={searchResults} />}
+        {(searchBarIsVisible && searchResults.length > 0) && <SearchResults searchResults={searchResults} />}
         <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible}>SEARCH</SearchButton>
       </SearchForm>
     </SearchBarContainer>

@@ -9,6 +9,7 @@ export async function createNewStateWithData(url, type) {
     const payload = await fetchData(url);
     Object.assign(newState, { payload });
   } catch (err) {
+    console.log('Error!!');
     Object.assign(newState, { payload: [] });
     throw new Error(err);
   }
