@@ -1,4 +1,5 @@
 import {
+  CLEAR_SEARCH_RESULTS,
   DETERMINE_FAN_FAVORITES,
   FINISH_INITIAL_LOAD,
   LOAD_TOP_TWENTY_MOST_POPULAR,
@@ -16,6 +17,13 @@ import {
   getSearchUrl,
 } from './../utils/endpoints';
 import { createNewStateWithData } from './../utils/createNewStateWithData';
+
+export const clearSearchResults = () => dispatch => {
+  return dispatch({
+    type: CLEAR_SEARCH_RESULTS,
+    payload: [],
+  });
+};
 
 export const determineFanFavorites = () => (dispatch, getState) => {
   const { topTwentyHighestRanked, topTwentyMostPopular } = getState();
@@ -65,7 +73,7 @@ export const setRecentlyViewedSeries = (newSeries) => (dispatch, getState) => {
   });
 };
 
-export const setSearchBarInput = input => dispatch => {
+export const setSearchBarInput = (input = '') => dispatch => {
   return dispatch({
     type: SET_SEARCH_BAR_INPUT,
     payload: input,
@@ -88,10 +96,10 @@ export const toggleSearchBarVisibility = () => (dispatch, getState) => {
   });
 }
 
-export const setSearchResults = () => (dispatch, getState) => {
+export const setSearchResults = () => async (dispatch, getState) => {
   const { searchBarInput } = getState();
   const url = getSearchUrl(searchBarInput);
-  const newState = createNewStateWithData(url, SET_SEARCH_RESULTS);
+  const newState = await createNewStateWithData(url, SET_SEARCH_RESULTS);
 
   return dispatch(newState);
 };

@@ -1,10 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { batch, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { toggleSearchBarVisibility, setSearchBarInput, setSearchResults } from './../../actions';
+import { clearSearchResults, toggleSearchBarVisibility, setSearchBarInput, setSearchResults, setFocusedSeries, setRecentlyViewedSeries } from './../../actions';
 import useSearchBarInput from './../hooks/useSearchBarInput';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
 import useSearchResults from './../hooks/useSearchResults';
+import SearchResults from './SearchResults';
 
 const SearchBarContainer = styled.section`
   padding: 0.25rem 0.5rem;
@@ -46,7 +47,8 @@ const SearchButton = styled.button`
   border-top-right-radius: 33px;
   border-bottom-right-radius: 33px;
   ${props => props.searchBarIsVisible ? '' : 'border-radius: 33px;'}
-  color: var(--white);
+  color: ${props => props.searchBarIsVisible ? 'var(--white-smoke)' : 'var(--white)'};
+  ${props => props.searchResult ? 'color: var(--white);' : ''}
   font-weight: bold;
   outline: none;
   padding: 0.5rem 1.5rem;
@@ -59,71 +61,35 @@ const SearchButton = styled.button`
   }
 `;
 
-const SearchResultsContainer = styled.ul`
-  background: var(--white);
-  border: 2px solid var(--black-smoke);
-  border-radius: 4px;
-  box-shadow: var(--shadow);
-  color: var(--black);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-    bottom: -1;
-    left: 10px;
-  transition: .1s linear;
-  width: 290px;
-  z-index: 10;
-
-  li {
-    border-bottom: 2px solid var(--black-smoke);
-    font-size: var(--small-font-size);
-    padding: 0.5rem 1rem;
-
-    &:last-of-type {
-      border-bottom: unset;
-    }
-  
-    &:focus,
-    &:hover {
-      background: var(--black-smoke);
-    }
-  }
-
-  @media (max-width: 620px) {
-    width: 190px;
-  }
-`;
-
-const SearchResults = props => {
-  const { searchResults } = props || [];
-  const dispatch = useDispatch();
-  const handleMouseOver = title => dispatch(setSearchBarInput(title));
-
-  if (searchResults.length === 0) {
-    return <></>;
-  }
-
-  return (
-    <SearchResultsContainer>
-      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp || result.attributes.canonicalTitle)}>{result.title}</li>)}
-    </SearchResultsContainer>
-  );
-};
-
 const SearchBar = () => {
   const searchBarIsVisible = useSearchBarVisibility();
   const searchBarInput = useSearchBarInput();
   const dispatch = useDispatch();
-  const handleInput = e => dispatch(setSearchBarInput(e.target.value));
-  const searchResults = useSearchResults() || [];
+  const searchResults = useSearchResults();
+  const searchResult = searchResults.find(result => (searchBarInput === result.attributes.titles.en_jp || searchBarInput === result.attributes.titles.canonicalTitle)) || false;
+
+
+  function handleInput(e) {
+    const prevInputLength = searchBarInput.length;
+    const currInputLength = e.target.value.length;
+
+    dispatch(setSearchBarInput(e.target.value));
+
+    searchBarInput === '' && dispatch(clearSearchResults());
+
+    (currInputLength > prevInputLength) && dispatch(setSearchResults());
+  }
 
   function handleSearch(e) {
     e.preventDefault();
-    (!searchBarIsVisible || !searchBarInput) && dispatch(toggleSearchBarVisibility());
+    (!searchBarIsVisible || searchBarInput === '') && dispatch(toggleSearchBarVisibility());
+    (searchBarIsVisible && searchBarInput === '') && dispatch(clearSearchResults());
 
-    if (searchBarInput !== '') {
-      dispatch(setSearchResults());
+    if (searchResult) {
+      batch(() => {
+        dispatch(setFocusedSeries(searchResult));
+        dispatch(setRecentlyViewedSeries(searchResult));
+      });
     }
   }
 
@@ -131,8 +97,8 @@ const SearchBar = () => {
     <SearchBarContainer role="search">
       <SearchForm>
         {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput} />}
-        {(searchBarIsVisible && searchResults.length > 0) && <SearchResults searchResults={searchResults} />}
-        <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible}>SEARCH</SearchButton>
+        {(searchBarIsVisible && searchResults.length > 0) && <SearchResults />}
+        <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible} searchResult={!!searchResult}>{searchBarIsVisible ? 'VIEW' : 'SEARCH'}</SearchButton>
       </SearchForm>
     </SearchBarContainer>
   );

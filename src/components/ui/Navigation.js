@@ -15,13 +15,21 @@ const NavLogo = styled.h2`
   font-size: var(--base-font-size):
   padding: 0.5rem 1rem;
   text-shadow: var(--shadow);
+  
+  &:focus,
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-const Navigation = () => (
-  <NavContainer>
-    <NavLogo>myAnime</NavLogo>
-    <SearchBar />
-  </NavContainer>
-);
+const Navigation = () => {
+  const handleClick = e => window.location.href = "/";
+  return (
+    <NavContainer>
+      <NavLogo onClick={handleClick} role="button" tabIndex="0">myAnime</NavLogo>
+      <SearchBar />
+    </NavContainer>
+  );
+};
 
 export default Navigation;

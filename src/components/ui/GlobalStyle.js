@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     --black-smoke: rgba(50, 50, 50, 0.21);
     --shadow: 1px 3px 11px var(--black-smoke);
   }
+  
+  ::selection {
+    background: var(--yellow);
+  }
 
   * {
     box-sizing: border-box;

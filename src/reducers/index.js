@@ -1,4 +1,5 @@
 import {
+  CLEAR_SEARCH_RESULTS,
   DETERMINE_FAN_FAVORITES,
   FINISH_INITIAL_LOAD,
   LOAD_TOP_TWENTY_MOST_POPULAR,
@@ -27,6 +28,12 @@ function rootReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case CLEAR_SEARCH_RESULTS:
+      return {
+        ...state,
+        searchResults: payload,
+      };
+
     case DETERMINE_FAN_FAVORITES:
       return {
         ...state,

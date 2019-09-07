@@ -1,13 +1,13 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
+import { batch, useDispatch } from 'react-redux';
 import Navigation from './../ui/Navigation';
 import FocusedSeries from './../ui/FocusedSeries';
 import Footer from './../ui/Footer';
 import useFocusedSeries from './../hooks/useFocusedSeries';
 import useSearchBarInput from './../hooks/useSearchBarInput';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
-import { setSearchBarVisibility } from './../../actions';
+import { setSearchBarVisibility, clearSearchResults } from './../../actions';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
@@ -19,7 +19,12 @@ const MainLayout = props => {
     function handleSearchBarVisibility(e) {
         e.preventDefault();
 
-        (searchBarVisibility && searchBarInput === '') && dispatch(setSearchBarVisibility(false));
+        if (searchBarVisibility && searchBarInput === '') {
+            batch(() => {
+                dispatch(setSearchBarVisibility(false));
+                dispatch(clearSearchResults());
+            });
+        }
     }
 
     return (
