@@ -32,7 +32,7 @@ const MainLayout = props => {
             <Helmet>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content={description || 'MyAnime.page | Anime for you!'} />
+                <meta name="description" content={description || 'myAnime.Page | Anime for you!'} />
                 <meta name="keywords" content={keywords || 'anime, anime database, myanime, myanimepage'} />
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content="myAnime.Page" />
