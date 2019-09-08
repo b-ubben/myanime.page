@@ -168,6 +168,7 @@ const ImageCard = props => {
       dispatch(setRecentlyViewedSeries(series));
     });
   }
+  const imageError = e => e.target.src = 'https://placekitten.com/g/500/500';
 
   let imgSrc;
   if (!coverImage && !posterImage) {
@@ -178,7 +179,7 @@ const ImageCard = props => {
 
   return (
     <ImageCardContainer {...attributes} onClick={e => handleClick(props)}>
-      <img src={imgSrc} alt={slug || ""} />
+      <img src={imgSrc} alt={slug || ""} onError={imageError} />
       <figcaption>{titles.en_jp}</figcaption>
     </ImageCardContainer>
   );

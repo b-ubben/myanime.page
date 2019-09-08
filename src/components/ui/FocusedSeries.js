@@ -48,9 +48,10 @@ const FocusedSeriesArticle = styled.article`
 `;
 
 const FocusedSeriesImg = styled.img`
+  filter: drop-shadow(var(--shadow));
   padding-top: 1.5rem;
   max-height: 500px;
-  object-fit: cover;
+  object-fit: contain;
 
   @media (max-width: 768px) {
     max-height: 350px;
@@ -88,8 +89,7 @@ const FocusedSeriesDetails = styled.dl`
   
   dd {
     display: inline-block;
-    margin-left: 0;
-    margin-right: 0.75rem;
+    margin: 0 0.75rem 0.35rem 0;
   }
 `;
 
@@ -134,6 +134,9 @@ const FocusedSeries = props => {
             <dd><span className="bold">Status:</span> {attributes.status}</dd>
             <dd><span className="bold">Episodes:</span> {attributes.episodeCount}</dd>
             <dd><span className="bold">Runtime:</span> {attributes.episodeLength}min</dd>
+            <br />
+            <dd><span className="bold">Start Date:</span> {attributes.startDate}</dd>
+            <dd><span className="bold">End Date:</span> {attributes.endDate || 'N/A'}</dd>
           </FocusedSeriesDetails>
           <FocusedSeriesSynopsis><strong>Summary:</strong><br />{attributes.synopsis}</FocusedSeriesSynopsis>
           <FocusedSeriesDismissButton onClick={handleClick} className="dismissable">Go Back!</FocusedSeriesDismissButton>

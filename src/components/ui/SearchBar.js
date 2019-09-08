@@ -68,16 +68,17 @@ const SearchBar = () => {
   const searchResults = useSearchResults();
   const searchResult = searchResults.find(result => (searchBarInput === result.attributes.titles.en_jp || searchBarInput === result.attributes.titles.canonicalTitle)) || false;
 
-
   function handleInput(e) {
     const prevInputLength = searchBarInput.length;
     const currInputLength = e.target.value.length;
 
     dispatch(setSearchBarInput(e.target.value));
 
-    searchBarInput === '' && dispatch(clearSearchResults());
-
-    (currInputLength > prevInputLength) && dispatch(setSearchResults());
+    if (currInputLength > prevInputLength) {
+      dispatch(setSearchResults());
+    } else {
+      dispatch(clearSearchResults());
+    }
   }
 
   function handleSearch(e) {
@@ -95,7 +96,7 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer role="search">
-      <SearchForm>
+      <SearchForm method="post">
         {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput} />}
         {(searchBarIsVisible && searchResults.length > 0) && <SearchResults />}
         <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible} searchResult={!!searchResult}>{searchBarIsVisible ? 'VIEW' : 'SEARCH'}</SearchButton>

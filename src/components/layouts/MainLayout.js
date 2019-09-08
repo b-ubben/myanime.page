@@ -32,8 +32,13 @@ const MainLayout = props => {
             <Helmet>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content={description || 'MyAnime.page | An Free, Friendly Anime Database for You!'} />
+                <meta name="description" content={description || 'MyAnime.page | Anime for you!'} />
                 <meta name="keywords" content={keywords || 'anime, anime database, myanime, myanimepage'} />
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:title" content="myAnime.Page" />
+                <meta name="twitter:description" content="Anime for you! Powered by Kitsu.io API" />
+                <meta name="twitter:image" content="https://images.ubben.co/myanimepage-twitter-card.png" />
+                <meta name="twitter:image:alt" content="Index page of myAnime.Page" />
 
                 <title>{title || 'myAnime.Page | Anime for You!'}</title>
             </Helmet>
