@@ -16,6 +16,7 @@ const ScrollingContainer = styled.section`
   min-height: 100%;
   overflow-x: auto;
   padding-bottom: 2rem;
+  -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
     display: none;
