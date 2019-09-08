@@ -17,7 +17,7 @@ const FooterCopy = styled.p`
 const Footer = () => (
   <FooterContainer>
     <FooterCopy>
-      MyAnime.Page &copy; 2019
+      myAnime.Page &copy; 2019
       <br />
       Questions or Comments? Tweet <a href="https://twitter.com/_ubben" target="_blank" rel="noopener noreferrer">@_ubben</a></FooterCopy>
   </FooterContainer>
