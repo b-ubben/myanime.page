@@ -54,6 +54,10 @@ const SearchButton = styled.button`
   padding: 0.5rem 1.5rem;
   transition: .1s linear;
 
+  &:focus {
+    border-color: var(--yellow);
+  }
+
   &:focus,
   &:hover {
     box-shadow: var(--shadow);
@@ -97,7 +101,7 @@ const SearchBar = () => {
   return (
     <SearchBarContainer role="search">
       <SearchForm method="post">
-        {searchBarIsVisible && <SearchInput type="text" name="search" onChange={handleInput} value={searchBarInput} />}
+        {searchBarIsVisible && <SearchInput autoComplete="off" type="text" name="search" onChange={handleInput} value={searchBarInput} />}
         {(searchBarIsVisible && searchResults.length > 0) && <SearchResults />}
         <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible} searchResult={!!searchResult}>{searchBarIsVisible ? 'VIEW' : 'SEARCH'}</SearchButton>
       </SearchForm>

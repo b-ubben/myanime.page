@@ -126,11 +126,11 @@ const FocusedSeries = props => {
   return (
     <FocusedSeriesContainer onClick={handleClick} className="dismissable">
       <FocusedSeriesArticle>
-        <FocusedSeriesImg src={attributes.posterImage.large} alt={attributes.titles.en_jp || attributes.titles.en} />
+        <FocusedSeriesImg src={attributes.posterImage.large} alt={attributes.titles.en_jp} />
         <FocusedSeriesInfoContainer>
-          <FocusedSeriesTitle>{attributes.titles.en_jp || attributes.canonicalTitle}</FocusedSeriesTitle>
+          <FocusedSeriesTitle>{attributes.titles.en_jp}</FocusedSeriesTitle>
           <FocusedSeriesDetails>
-            <dd><span className="bold">Community Rating:</span> {attributes.averageRating}%</dd>
+            <dd><span className="bold">Community Rating:</span> {attributes.averageRating ? `${attributes.averageRating}%` : 'N/A'}</dd>
             <dd><span className="bold">Status:</span> {attributes.status}</dd>
             <dd><span className="bold">Episodes:</span> {attributes.episodeCount}</dd>
             <dd><span className="bold">Runtime:</span> {attributes.episodeLength}min</dd>

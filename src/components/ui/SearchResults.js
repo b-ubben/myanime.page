@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useSearchResults from './../hooks/useSearchResults';
 import { useDispatch } from 'react-redux';
-import { setSearchBarInput } from './../../actions';
+import { setSearchBarInput, setFocusedSeries } from './../../actions';
 
 const SearchResultsContainer = styled.ul`
   background: var(--white);
@@ -44,6 +44,8 @@ const SearchResults = () => {
   const searchResults = useSearchResults();
   const dispatch = useDispatch();
   const handleMouseOver = title => dispatch(setSearchBarInput(title));
+  const handleClick = result => dispatch(setFocusedSeries(result));
+
 
   if (searchResults.length === 0) {
     return <></>;
@@ -51,7 +53,7 @@ const SearchResults = () => {
 
   return (
     <SearchResultsContainer>
-      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp || result.attributes.canonicalTitle)}>{result.attributes.titles.en_jp}</li>)}
+      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp)} onClick={e => handleMouseOver(result.attributes.titles.en_jp)} onDoubleClick={e => handleClick(result)}>{result.attributes.titles.en_jp}</li>)}
     </SearchResultsContainer>
   );
 };

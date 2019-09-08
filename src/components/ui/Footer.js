@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const FooterContainer = styled.footer`
   background: var(--black);
   color: var(--white);
+  margin-top: 1.5rem;
   padding-bottom: 1rem;
   padding-top: 3rem;
 `;
