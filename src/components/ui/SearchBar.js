@@ -101,7 +101,7 @@ const SearchBar = () => {
   return (
     <SearchBarContainer role="search">
       <SearchForm method="post">
-        {searchBarIsVisible && <SearchInput autoComplete="off" type="text" name="search" onChange={handleInput} value={searchBarInput} />}
+        {searchBarIsVisible && <SearchInput className="search-bar" autoComplete="off" type="text" name="search" onChange={handleInput} value={searchBarInput} />}
         {(searchBarIsVisible && searchResults.length > 0) && <SearchResults />}
         <SearchButton type="submit" onClick={handleSearch} searchBarIsVisible={searchBarIsVisible} searchResult={!!searchResult}>{searchBarIsVisible ? 'VIEW' : 'SEARCH'}</SearchButton>
       </SearchForm>
