@@ -6,7 +6,7 @@ import FocusedSeries from './../ui/FocusedSeries';
 import Footer from './../ui/Footer';
 import useFocusedSeries from './../hooks/useFocusedSeries';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
-import { setSearchBarVisibility, clearSearchResults } from './../../actions';
+import { setSearchBarInput, setSearchBarVisibility, clearSearchResults } from './../../actions';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
@@ -20,6 +20,7 @@ const MainLayout = props => {
         if (searchBarVisibility) {
             batch(() => {
                 dispatch(setSearchBarVisibility(false));
+                dispatch(setSearchBarInput(''));
                 dispatch(clearSearchResults());
             });
         }

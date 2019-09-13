@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import useSearchResults from './../hooks/useSearchResults';
-import { useDispatch } from 'react-redux';
-import { setSearchBarInput, setFocusedSeries } from './../../actions';
+import { batch, useDispatch } from 'react-redux';
+import { setSearchBarInput, setFocusedSeries, setRecentlyViewedSeries } from './../../actions';
 
 const SearchResultsContainer = styled.ul`
   background: var(--white);
@@ -44,7 +44,13 @@ const SearchResults = () => {
   const searchResults = useSearchResults();
   const dispatch = useDispatch();
   const handleMouseOver = title => dispatch(setSearchBarInput(title));
-  const handleClick = result => dispatch(setFocusedSeries(result));
+
+  function handleClick(result) {
+    batch(() => {
+      dispatch(setFocusedSeries(result));
+      dispatch(setRecentlyViewedSeries(result));
+    });
+  }
 
 
   if (searchResults.length === 0) {
