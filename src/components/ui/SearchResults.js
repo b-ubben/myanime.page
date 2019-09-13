@@ -53,7 +53,7 @@ const SearchResults = () => {
 
   return (
     <SearchResultsContainer>
-      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp)} onClick={e => handleMouseOver(result.attributes.titles.en_jp)} onDoubleClick={e => handleClick(result)} tabIndex="0">{result.attributes.titles.en_jp}</li>)}
+      {searchResults.map(result => <li key={result.id} onMouseOver={e => handleMouseOver(result.attributes.titles.en_jp)} onFocus={e => handleMouseOver(result.attributes.titles.en_jp)} onClick={e => handleMouseOver(result.attributes.titles.en_jp)} onDoubleClick={e => handleClick(result)} tabIndex="0">{result.attributes.titles.en_jp}</li>)}
     </SearchResultsContainer>
   );
 };

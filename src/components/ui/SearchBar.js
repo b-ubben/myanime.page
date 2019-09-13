@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { batch, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { clearSearchResults, toggleSearchBarVisibility, setSearchBarInput, setSearchResults, setFocusedSeries, setRecentlyViewedSeries } from './../../actions';
@@ -16,7 +16,7 @@ const SearchForm = styled.form`
 `;
 
 const SearchInput = styled.input`
-  animation: .25s grow linear;
+  animation: .15s grow linear;
   background: var(--white-smoke);
   border: 2px solid transparent;
   border-top-left-radius: 33px;
@@ -97,6 +97,11 @@ const SearchBar = () => {
       });
     }
   }
+
+  useEffect(() => {
+    const searchBar = document.querySelector('input');
+    searchBarIsVisible && searchBar.focus();
+  }, [searchBarIsVisible]);
 
   return (
     <SearchBarContainer role="search">

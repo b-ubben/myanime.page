@@ -5,21 +5,19 @@ import Navigation from './../ui/Navigation';
 import FocusedSeries from './../ui/FocusedSeries';
 import Footer from './../ui/Footer';
 import useFocusedSeries from './../hooks/useFocusedSeries';
-import useSearchBarInput from './../hooks/useSearchBarInput';
 import useSearchBarVisibility from './../hooks/useSearchBarVisibility';
 import { setSearchBarVisibility, clearSearchResults } from './../../actions';
 
 const MainLayout = props => {
     const { children, description, keywords, title } = props;
     const focusedSeries = useFocusedSeries();
-    const searchBarInput = useSearchBarInput();
     const searchBarVisibility = useSearchBarVisibility();
     const dispatch = useDispatch();
 
     function handleSearchBarVisibility(e) {
         e.preventDefault();
 
-        if (searchBarVisibility && searchBarInput === '') {
+        if (searchBarVisibility) {
             batch(() => {
                 dispatch(setSearchBarVisibility(false));
                 dispatch(clearSearchResults());
