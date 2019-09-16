@@ -175,7 +175,7 @@ const ImageCard = props => {
   if (!coverImage && !posterImage) {
     imgSrc = "";
   } else {
-    imgSrc = coverImage ? coverImage.tiny : posterImage.tiny;
+    imgSrc = posterImage ? posterImage.large : coverImage.tiny;
   }
 
   return (

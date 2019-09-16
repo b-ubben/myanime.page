@@ -14,9 +14,7 @@ const MainLayout = props => {
     const searchBarVisibility = useSearchBarVisibility();
     const dispatch = useDispatch();
 
-    function handleSearchBarVisibility(e) {
-        e.preventDefault();
-
+    function handleSearchBarVisibility() {
         if (searchBarVisibility) {
             batch(() => {
                 dispatch(setSearchBarVisibility(false));
@@ -38,7 +36,7 @@ const MainLayout = props => {
             </Helmet>
 
             <Navigation />
-            <main onClick={handleSearchBarVisibility}>
+            <main onClick={e => handleSearchBarVisibility()}>
                 {children}
                 {!!focusedSeries.id && <FocusedSeries {...focusedSeries} />}
             </main>
